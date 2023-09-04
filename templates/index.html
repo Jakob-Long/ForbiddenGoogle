@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="../static/gmail.ico">
+    <title>Inbox</title>
+</head>
+<body>
+    <h1>Search Page</h1>
+    <form id="search-form">
+        <input type="text" id="search-query" placeholder="Enter your search query">
+        <button type="submit">Search</button>
+    </form>
+
+    <script>
+        document.getElementById("search-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById("search-query").value;
+            if (searchQuery) {
+                const newTab = window.open("about:blank");
+
+                // Fetch search results from your Flask-based reverse proxy
+                try {
+                    const response = await fetch(`/proxy?query=${searchQuery}`);
+                    const content = await response.text();
+                    
+                    // Populate the new tab with the search results
+                    newTab.document.open();
+                    newTab.document.write(content);
+                    newTab.document.close();
+
+                    // Set the title of the new tab after a delay
+                    setTimeout(function() {
+                        newTab.document.title = "My Drive";
+                    }, 1000); // Adjust the delay as needed (in milliseconds)
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
