@@ -1,0 +1,14 @@
+{
+    "builds":[
+        {
+            "src":"reverse_proxy.py",
+            "use":"@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src":"/(.*)",
+            "dest":"reverse_proxy.py"
+        }
+    ]
+}
