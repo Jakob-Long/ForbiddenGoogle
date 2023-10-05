@@ -1,6 +1,6 @@
 import httpx
 from flask import Flask, request, Response, render_template
-from urllib.parse import quote  # Import the quote function
+from urllib.parse import quote  # Use urllib.parse.quote instead of werkzeug.urls.url_quote
 
 app = Flask(__name__, static_folder='static')
 
@@ -40,16 +40,17 @@ async def proxy():
                     const linkURL = link.href;
 
                     // Remove the prefix from the clicked URL
-                    const cleanURL = linkURL.replace('http://127.0.0.1:5000/url?q=', '');
+                   const cleanURL = link.href.replace('https://www.google.com/search?q=', '');
 
                     const newTab = window.open("about:blank");
                     newTab.document.open();
-                    newTab.document.write(cleanURL);
+                    newTab.document.write(decodeURIComponent(cleanURL));
                     newTab.document.close();
 
                     setTimeout(function() {
                         newTab.document.title = "Classroom";
                     }, 1000);
+
                 });
             });
         </script>
