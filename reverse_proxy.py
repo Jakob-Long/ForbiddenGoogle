@@ -40,17 +40,16 @@ async def proxy():
                     const linkURL = link.href;
 
                     // Remove the prefix from the clicked URL
-                   const cleanURL = link.href.replace('https://www.google.com/search?q=', '');
+                    const cleanURL = linkURL.replace('http://127.0.0.1:5000/url?q=', '');
 
                     const newTab = window.open("about:blank");
                     newTab.document.open();
-                    newTab.document.write(decodeURIComponent(cleanURL));
+                    newTab.document.write(cleanURL);
                     newTab.document.close();
 
                     setTimeout(function() {
                         newTab.document.title = "Classroom";
                     }, 1000);
-
                 });
             });
         </script>
