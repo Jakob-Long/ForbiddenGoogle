@@ -3,91 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/ico" href="../static/gmail.ico">
-    <title>Inbox</title>
+    <title>History News</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add custom CSS for modern styling -->
     <style>
+        /* Modern color scheme */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: #f8f9fa;
         }
-        h1 {
+
+        .top-header {
+            background-color: #007bff;
+            padding: 20px 0;
             text-align: center;
-            color: #333;
-            margin-bottom: 20px;
         }
-        #search-form {
-            text-align: center;
-            max-width: 400px;
-            display: flex;
-            align-items: center;
+
+        .navbar {
+            background-color: #fff; /* Light gray background for navbar */
+            border: 2px solid black;
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px 20px; /* Adjust padding for spacing */
+            margin: 20px auto; /* Center the navbar horizontally */
+            width: 500px; /* Limit the width */
         }
-        #search-query {
-            width: 70%;
-            padding: 10px;
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #007bff; /* Blue link color */
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            background-color: #007bff; /* Blue background on hover */
+            color: #fff; /* White text on hover */
+            border-radius: 10px;
+            transition: .3s;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #007bff;
+        }
+
+        .article-box {
+            background-color: #ffffff; /* White background for article box */
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            flex: 1;
+            border-radius: 10px;
+            padding: 20px;
         }
-        #search-query:focus {
-            outline: none;
-            border-color: #007BFF;
-        }
-        button[type="submit"] {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-        button[type="submit"]:hover {
-            background-color: #0056b3;
+
+        .article-box h2 {
+            color: #007bff; /* Blue header text color */
         }
     </style>
 </head>
 <body>
-    <h1>Search Page</h1>
-    <form id="search-form">
-        <input type="text" id="search-query" placeholder="Enter your search query">
-        <button type="submit">Search</button>
-    </form>
+    <header class="top-header text-white">
+        <h1 class="display-4">History News</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showArticle(1)">Ancient Egypt</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showArticle(2)">The Renaissance</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showArticle(3)">World War II</a></li>
+        </ul>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <article id="article-content" class="p-4 article-box">
+                    <h2>Welcome to History News</h2>
+                    <p class="lead">Select an article from the list to read more.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        document.getElementById("search-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const searchQuery = document.getElementById("search-query").value;
-            if (searchQuery) {
-                const newTab = window.open("about:blank");
-    
-                // Fetch search results from your Flask-based reverse proxy
-                try {
-                    const response = await fetch(`/proxy?query=${searchQuery}`);
-                    const content = await response.text();
-                    
-                    // Populate the new tab with the search results
-                    newTab.document.open();
-                    newTab.document.write(content);
-                    newTab.document.close();
-    
-                    // Set the title of the new tab after a delay
-                    setTimeout(function() {
-                        newTab.document.title = "My Drive";
-                    }, 1000); // Adjust the delay as needed (in milliseconds)
-                } catch (error) {
-                    console.error(error);
-                }
+        function showArticle(articleNumber) {
+            const articleContent = document.getElementById("article-content");
+            switch (articleNumber) {
+                case 1:
+                    articleContent.innerHTML = `
+                        <h2>Ancient Egypt</h2>
+                        <p>Ancient Egypt, a civilization that thrived along the Nile River in northeastern Africa for over 3,000 years, continues to captivate the imagination of people around the world. Its rich history, monumental structures like the pyramids, intricate hieroglyphic writing, and legendary pharaohs such as Tutankhamun and Cleopatra have left an indelible mark on the annals of human history. This article delves deeper into the fascinating world of ancient Egypt, exploring its enduring legacy, cultural achievements, and societal intricacies.</p>
+
+                        <h3>Geographic Blessings and Challenges</h3>
+
+                        <p>The Nile River, often referred to as the lifeblood of Egypt, played a pivotal role in the development of this ancient civilization. Its annual inundation brought fertile soil, ensuring a consistent food supply for the population. The Nile also served as a natural highway for trade and transportation, facilitating communication and commerce throughout the region. However, the Nile's predictability was both a blessing and a curse. While the annual flooding enriched the land, it also posed the threat of destruction if the inundation was too severe.</p>
+
+                        <h3>The Rise of Pharaohs and Dynasties</h3>
+
+                        <p>The concept of divine kingship was central to Egyptian society. The pharaohs, believed to be divine rulers, wielded tremendous power and authority. They were not only political leaders but also religious figures responsible for maintaining cosmic order (Ma'at) and ensuring the well-being of their subjects. The first Egyptian dynasty, founded around 3100 BCE, marked the beginning of this centralized authority, and Egypt would go on to see many dynasties rise and fall throughout its history.</p>
+
+                        <h3>Architectural Marvels: The Pyramids</h3>
+
+                        <p>One of the most iconic symbols of ancient Egypt is undoubtedly the pyramid. These colossal structures were primarily built as tombs for pharaohs and high-ranking officials, and they continue to awe and inspire with their precision engineering and grandeur. The Great Pyramid of Giza, constructed for Pharaoh Khufu around 2560 BCE, remains one of the Seven Wonders of the Ancient World. The pyramids are a testament to the Egyptians' advanced understanding of mathematics, engineering, and architecture.</p>
+
+                        <h3>The Enigmatic Script: Hieroglyphs</h3>
+
+                        <p>Hieroglyphs, the intricate system of writing used by the ancient Egyptians, have fascinated scholars for centuries. Comprising a combination of logographic and alphabetic elements, hieroglyphs adorned temple walls, tombs, and papyrus scrolls. This written language was used for both religious and secular purposes, and deciphering it unlocked the secrets of ancient Egyptian history, religion, and daily life.</p>
+
+                        <h3>Legacy of Tutankhamun and Cleopatra</h3>
+
+                        <p>While Egypt boasts a rich tapestry of pharaohs, two names continue to stand out even millennia after their reigns: Tutankhamun and Cleopatra. Tutankhamun, also known as King Tut, became famous for his nearly intact tomb discovered by archaeologist Howard Carter in 1922. The treasures found within Tutankhamun's tomb offered unparalleled insights into the opulence and craftsmanship of the ancient Egyptian civilization.</p>
+
+                        <p>Cleopatra, the last pharaoh of Egypt, is renowned not only for her beauty but also for her political prowess. Her relationships with prominent Roman leaders, including Julius Caesar and Mark Antony, shaped the fate of Egypt and the Roman Republic. Her life and death continue to inspire literature, art, and cinema to this day.</p>
+
+                        <h3>Conclusion: A Timeless Legacy</h3>
+
+                        <p>In conclusion, ancient Egypt's legacy is a testament to human achievement, resilience, and creativity. From its awe-inspiring architecture to its intricate hieroglyphic writing, this civilization has left an indelible mark on history. The enduring fascination with Egypt's pharaohs, such as Tutankhamun and Cleopatra, reflects the enduring allure of this timeless civilization. As we continue to uncover more about the secrets of ancient Egypt through archaeological discoveries and historical research, its mystique and importance in the grand tapestry of human history only deepen.</p>
+                        `;
+                    break;
+                case 2:
+                    articleContent.innerHTML = `
+                        <h2>The Renaissance</h2>
+                        <p>The Renaissance was a cultural movement that spanned roughly the 14th to the 17th century in Europe.</p>
+                        <p>It marked a period of renewed <a href="{{ url_for('site')}}" style="text-decoration:none; color: black; cursor: text;">interest</a> in art, science, and humanism and led to significant advancements in various fields.</p>
+
+                        <h3>1. Historical Context</h3>
+
+                        <p>The Renaissance emerged in Europe during a time of significant historical change. The Middle Ages had seen the dominance of feudalism and the Church, with limited cultural and intellectual growth. However, in the late 14th century, Europe began to recover from the devastation of the Black Death, and this period of recovery set the stage for the Renaissance.</p>
+
+                        <h3>2. Rediscovery of Antiquity</h3>
+
+                        <p>One of the central themes of the Renaissance was the rediscovery of classical antiquity. Scholars and artists looked to the works of ancient Greece and Rome for inspiration. They sought to emulate the art, philosophy, and ideals of these classical civilizations, leading to a resurgence of interest in humanism and classical learning.</p>
+
+                        <h3>3. Artistic Achievements</h3>
+
+                        <p>The Renaissance produced some of the most celebrated artists in history, including Leonardo da Vinci, Michelangelo, and Raphael. These masters created iconic works that continue to captivate the world. Renaissance art emphasized realism, perspective, and a focus on the human form. The Mona Lisa and the Sistine Chapel ceiling are just two examples of the artistic brilliance of this era.</p>
+
+                        <h3>4. Scientific Revolution</h3>
+
+                        <p>The Renaissance was not only a period of artistic flourishing but also a time of great scientific advancement. Thinkers like Copernicus, Galileo, and Kepler challenged the geocentric view of the universe and laid the foundation for modern astronomy. The invention of the printing press by Johannes Gutenberg revolutionized the spread of knowledge.</p>
+
+                        <h3>5. Humanism and Literature</h3>
+
+                        <p>Humanism, a central intellectual movement of the Renaissance, emphasized the study of classical texts and a focus on human potential and achievement. This led to a surge in literature, with writers like Dante Alighieri, Geoffrey Chaucer, and Petrarch contributing to the development of vernacular literature and the spread of knowledge to a wider audience.</p>
+
+                        <h3>6. Legacy of the Renaissance</h3>
+
+                        <p>The Renaissance had a profound and enduring impact on European culture and beyond. It paved the way for the Enlightenment, the scientific revolution, and the modern age. The ideas and achievements of this period continue to influence art, science, and human thought today, making the Renaissance one of the most significant cultural movements in history.</p>
+
+                    `;
+                    break;
+                case 3:
+                    articleContent.innerHTML = `
+                        <h2>World War II</h2>
+                        <p>World War II was a global war that lasted from 1939 to 1945, involving most of the world's nations. It resulted in significant political, social, and economic changes and is remembered for its devastating impact.</p>
+
+                        <h3>1. Prelude to War</h3>
+
+                        <p>The origins of World War II can be traced back to the aftermath of World War I, as unresolved issues and the harsh terms of the Treaty of Versailles sowed the seeds of discontent. Adolf Hitler's rise to power in Germany, expansionist ambitions in Europe, and the invasion of Poland in 1939 marked the official start of the war.</p>
+
+                        <h3>2. Major Alliances</h3>
+
+                        <p>The war saw the formation of two major alliances: the Axis Powers, including Germany, Italy, and Japan, and the Allies, comprised of the United States, the United Kingdom, the Soviet Union, and other nations. These alliances shaped the course of the conflict and its outcome.</p>
+
+                        <h3>3. Key Theaters of War</h3>
+
+                        <p>World War II was fought on multiple fronts, with key theaters of war in Europe, Asia, and the Pacific. The European theater saw major battles like the Battle of Stalingrad, the D-Day landings, and the Holocaust. In the Pacific, battles like Midway and Iwo Jima were pivotal moments in the fight against Japan.</p>
+
+                        <h3>4. Technological Advancements</h3>
+
+                        <p>The war witnessed significant technological advancements, including the development of the atomic bomb, radar technology, and the use of tanks, aircraft, and submarines. These innovations had a lasting impact on military strategy and post-war technological progress.</p>
+
+                        <h3>5. Holocaust and Human Tragedy</h3>
+
+                        <p>The Holocaust, a systematic genocide conducted by Nazi Germany, resulted in the deaths of millions of Jews and other minority groups. It remains one of the darkest chapters in human history and a stark reminder of the consequences of hatred and intolerance.</p>
+
+                        <h3>6. End of the War</h3>
+
+                        <p>The war ended in 1945 with the unconditional surrender of both Nazi Germany and Japan. The dropping of atomic bombs on Hiroshima and Nagasaki hastened Japan's surrender. World War II had a profound impact on the world, leading to the establishment of the United Nations and the beginning of the Cold War between the United States and the Soviet Union.</p>
+
+                        <h3>7. Legacy and Lessons</h3>
+
+                        <p>World War II left a lasting legacy, shaping the post-war world order, the emergence of the United States and the Soviet Union as superpowers, and the rebuilding of Europe through initiatives like the Marshall Plan. It also underscored the importance of diplomacy and international cooperation in preventing future conflicts.</p>
+
+                    `;
+                    break;
+                default:
+                    articleContent.innerHTML = "<h2>Article not found</h2>";
+                    break;
             }
-        });
-    </script>    
+        }
+    </script>
 </body>
 </html>

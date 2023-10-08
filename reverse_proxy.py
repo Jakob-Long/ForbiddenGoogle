@@ -29,6 +29,10 @@ async def fetch_content(url):
 def index():
     return render_template("index.html")
 
+@app.route("/site")
+def site():
+    return render_template("site.html")
+
 @app.route("/proxy")
 async def proxy():
     try:
